@@ -23,8 +23,9 @@ func (rt Router) handleStatus(w http.ResponseWriter, r *http.Request, _ httprout
 
 	status := rt.sm.Status()
 	resp := StatusResponse{
-		Name:   kServiceName,
-		Status: status.String(),
+		Name:    kServiceName,
+		Status:  status.String(),
+		Version: rt.ver,
 	}
 
 	reqId := r.Header.Get(logger.HeaderRequestID)

@@ -6,6 +6,8 @@ package fleet
 
 import (
 	"encoding/json"
+
+	"github.com/elastic/fleet-server/v7/internal/pkg/build"
 )
 
 const (
@@ -120,6 +122,7 @@ type Event struct {
 }
 
 type StatusResponse struct {
-	Name   string `json:"name"`
-	Status string `json:"status"`
+	Name    string        `json:"name"`
+	Status  string        `json:"status"`
+	Version build.Version `json:"version"`
 }

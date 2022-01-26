@@ -81,7 +81,7 @@ func startTestServer(ctx context.Context) (*tserver, error) {
 	cfg.Inputs[0].Server = *srvcfg
 	log.Info().Uint16("port", port).Msg("Test fleet server")
 
-	srv, err := NewFleetServer(cfg, build.Info{Version: serverVersion}, status.NewLog())
+	srv, err := NewFleetServer(cfg, build.Version{Number: serverVersion}, status.NewLog())
 	if err != nil {
 		return nil, err
 	}

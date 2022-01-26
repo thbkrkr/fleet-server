@@ -24,10 +24,10 @@ var (
 )
 
 func main() {
-	cmd := fleet.NewCommand(build.Info{
-		Version:   Version,
-		Commit:    Commit,
-		BuildTime: build.Time(BuildTime),
+	cmd := fleet.NewCommand(build.Version{
+		Number:    Version,
+		BuildHash: Commit,
+		BuildDate: build.Time(BuildTime),
 	})
 	if err := cmd.Execute(); err != nil {
 		fmt.Fprintln(os.Stderr, err)

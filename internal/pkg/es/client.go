@@ -63,9 +63,9 @@ func NewClient(ctx context.Context, cfg *config.Config, longPoll bool, opts ...C
 	return es, nil
 }
 
-func WithUserAgent(name string, bi build.Info) ConfigOption {
+func WithUserAgent(name string, ver build.Version) ConfigOption {
 	return func(config *elasticsearch.Config) {
-		ua := userAgent(name, bi)
+		ua := userAgent(name, ver)
 		// Set User-Agent header
 		if config.Header == nil {
 			config.Header = http.Header{}
@@ -91,11 +91,11 @@ func InstrumentRoundTripper() ConfigOption {
 	}
 }
 
-func userAgent(name string, bi build.Info) string {
+func userAgent(name string, ver build.Version) string {
 	return fmt.Sprintf("Elastic-%s/%s (%s; %s; %s; %s)",
 		name,
-		bi.Version, runtime.GOOS, runtime.GOARCH,
-		bi.Commit, bi.BuildTime)
+		ver.Number, runtime.GOOS, runtime.GOARCH,
+		ver.BuildHash, ver.BuildDate)
 }
 
 type InfoResponse struct {

@@ -31,9 +31,10 @@ import (
 	"github.com/elastic/fleet-server/v7/internal/pkg/testing/suite"
 )
 
-var biInfo = build.Info{
-	Version: "1.0.0",
-	Commit:  "integration",
+var version = build.Version{
+	Number:    "1.0.0",
+	BuildHash: "integration",
+	BuildDate: time.Date(2020, time.Month(11), 10, 11, 02, 45, 0, time.UTC),
 }
 
 var policyData = []byte(`
@@ -115,7 +116,7 @@ func (s *agentSuite) TestAgentMode(t *testing.T) {
 	wg.Add(1)
 	go func() {
 		defer wg.Done()
-		agent, err := NewAgentMode(ucfg.New(), r, biInfo)
+		agent, err := NewAgentMode(ucfg.New(), r, version)
 		require.NoError(t, err)
 		err = agent.Run(ctx)
 		assert.NoError(t, err)

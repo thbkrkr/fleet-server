@@ -6,9 +6,10 @@ package build
 
 import "time"
 
-type Info struct {
-	Version, Commit string
-	BuildTime       time.Time
+type Version struct {
+	Number    string    `json:"number"`
+	BuildHash string    `json:"build_hash"`
+	BuildDate time.Time `json:"build_date"`
 }
 
 func Time(stime string) time.Time {

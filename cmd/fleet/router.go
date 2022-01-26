@@ -8,6 +8,7 @@ import (
 	"context"
 	"net/http"
 
+	"github.com/elastic/fleet-server/v7/internal/pkg/build"
 	"github.com/elastic/fleet-server/v7/internal/pkg/bulk"
 	"github.com/elastic/fleet-server/v7/internal/pkg/logger"
 	"github.com/elastic/fleet-server/v7/internal/pkg/policy"
@@ -28,15 +29,15 @@ const (
 type Router struct {
 	ctx    context.Context
 	bulker bulk.Bulk
-	ver    string
 	ct     *CheckinT
 	et     *EnrollerT
 	at     *ArtifactT
 	ack    *AckT
 	sm     policy.SelfMonitor
+	ver    build.Version
 }
 
-func NewRouter(ctx context.Context, bulker bulk.Bulk, ct *CheckinT, et *EnrollerT, at *ArtifactT, ack *AckT, sm policy.SelfMonitor, tracer *apm.Tracer) *httprouter.Router {
+func NewRouter(ctx context.Context, bulker bulk.Bulk, ct *CheckinT, et *EnrollerT, at *ArtifactT, ack *AckT, sm policy.SelfMonitor, tracer *apm.Tracer, ver build.Version) *httprouter.Router {
 
 	r := Router{
 		ctx:    ctx,
@@ -46,6 +47,7 @@ func NewRouter(ctx context.Context, bulker bulk.Bulk, ct *CheckinT, et *Enroller
 		sm:     sm,
 		at:     at,
 		ack:    ack,
+		ver:    ver,
 	}
 
 	routes := []struct {
